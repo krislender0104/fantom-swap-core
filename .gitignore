@@ -1,7 +1,7 @@
 /node_modules/
 /build/
+/migrations/
 
-node_modules
 truffle-config.js
 
 #Buidler files
