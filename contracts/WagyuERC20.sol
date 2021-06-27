@@ -7,7 +7,7 @@ contract WagyuERC20 is IWagyuERC20 {
     using SafeMath for uint;
 
     string public constant name = 'Wagyu LPs';
-    string public constant symbol = 'Wag-LP';
+    string public constant symbol = 'Wagyu-LP';
     uint8 public constant decimals = 18;
     uint  public totalSupply;
     mapping(address => uint) public balanceOf;
