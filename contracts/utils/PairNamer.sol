@@ -1,10 +1,11 @@
+// SPDX-License-Identifier: MIT
 pragma solidity >=0.5.0;
 
 import './SafeBEP20Namer.sol';
 
 // produces names for pairs of tokens using Uniswap's naming scheme
 library PairNamer {
-    string private constant TOKEN_SYMBOL_PREFIX = 'WagPair';
+    string private constant TOKEN_SYMBOL_PREFIX = 'PeppPair';
     string private constant TOKEN_SEPARATOR = ':';
 
     // produces a pair descriptor in the format of `${prefix}${name0}:${name1}${suffix}`

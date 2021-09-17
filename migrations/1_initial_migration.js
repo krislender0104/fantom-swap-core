@@ -1,12 +1,9 @@
-const WagyuFactory = artifacts.require('WagyuFactory');
+const PepeFactory = artifacts.require('PepeFactory');
 
-const feeToSetter = '0x96D95da6a07954BB494ED587f38756c4f99De472';
+const feeToSetter = '0xCb045AC2BB15E4809Fab878b9B0bDDaD99702395';
 
 module.exports = function(deployer) {
-  deployer.deploy(WagyuFactory, feeToSetter).then(() => {
-    console.log('Wagyu Factory is deployed.');
+  deployer.deploy(PepeFactory, feeToSetter).then(() => {
+    console.log('Pepe Factory is deployed.');
   });
-  // deployer.deploy(WVLX).then(() => {
-  //   console.log('WVLX Token is deployed.');
-  // });
 };

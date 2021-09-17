@@ -2,10 +2,11 @@
 /build/
 /migrations/
 
-truffle-config.js
 
 #Buidler files
 cache
 artifacts
 coverage
 coverage.json
+
+.env

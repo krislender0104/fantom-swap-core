@@ -1,13 +1,14 @@
+// SPDX-License-Identifier: MIT
 pragma solidity >=0.5.16;
 
-import './interfaces/IWagyuERC20.sol';
+import './interfaces/IPepeERC20.sol';
 import './libraries/SafeMath.sol';
 
-contract WagyuERC20 is IWagyuERC20 {
+contract PepeERC20 is IPepeERC20 {
     using SafeMath for uint;
 
-    string public constant name = 'Wagyu LPs';
-    string public constant symbol = 'Wagyu-LP';
+    string public constant name = 'Pepe LPs';
+    string public constant symbol = 'Pepe-LP';
     uint8 public constant decimals = 18;
     uint  public totalSupply;
     mapping(address => uint) public balanceOf;
@@ -17,9 +18,6 @@ contract WagyuERC20 is IWagyuERC20 {
     // keccak256("Permit(address owner,address spender,uint256 value,uint256 nonce,uint256 deadline)");
     bytes32 public constant PERMIT_TYPEHASH = 0x6e71edae12b1b97f4d1f60370fef10105fa2faae0126114a169c64845d6126c9;
     mapping(address => uint) public nonces;
-
-    event Approval(address indexed owner, address indexed spender, uint value);
-    event Transfer(address indexed from, address indexed to, uint value);
 
     constructor() public {
         uint chainId;
@@ -79,7 +77,7 @@ contract WagyuERC20 is IWagyuERC20 {
     }
 
     function permit(address owner, address spender, uint value, uint deadline, uint8 v, bytes32 r, bytes32 s) external {
-        require(deadline >= block.timestamp, 'Wagyu: EXPIRED');
+        require(deadline >= block.timestamp, 'Pepe: EXPIRED');
         bytes32 digest = keccak256(
             abi.encodePacked(
                 '\x19\x01',
@@ -88,7 +86,7 @@ contract WagyuERC20 is IWagyuERC20 {
             )
         );
         address recoveredAddress = ecrecover(digest, v, r, s);
-        require(recoveredAddress != address(0) && recoveredAddress == owner, 'Wagyu: INVALID_SIGNATURE');
+        require(recoveredAddress != address(0) && recoveredAddress == owner, 'Pepe: INVALID_SIGNATURE');
         _approve(owner, spender, value);
     }
 }

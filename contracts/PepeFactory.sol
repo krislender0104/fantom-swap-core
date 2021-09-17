@@ -1,10 +1,11 @@
+// SPDX-License-Identifier: MIT
 pragma solidity >=0.5.16;
 
-import './interfaces/IWagyuFactory.sol';
-import './WagyuPair.sol';
+import './interfaces/IPepeFactory.sol';
+import './PepePair.sol';
 
-contract WagyuFactory is IWagyuFactory {
-    bytes32 public constant INIT_CODE_PAIR_HASH = keccak256(abi.encodePacked(type(WagyuPair).creationCode));
+contract PepeFactory is IPepeFactory {
+    bytes32 public constant INIT_CODE_PAIR_HASH = keccak256(abi.encodePacked(type(PepePair).creationCode));
 
     address public feeTo;
     address public feeToSetter;
@@ -23,16 +24,16 @@ contract WagyuFactory is IWagyuFactory {
     }
 
     function createPair(address tokenA, address tokenB) external returns (address pair) {
-        require(tokenA != tokenB, 'Wagyu: IDENTICAL_ADDRESSES');
+        require(tokenA != tokenB, 'Pepe: IDENTICAL_ADDRESSES');
         (address token0, address token1) = tokenA < tokenB ? (tokenA, tokenB) : (tokenB, tokenA);
-        require(token0 != address(0), 'Wagyu: ZERO_ADDRESS');
-        require(getPair[token0][token1] == address(0), 'Wagyu: PAIR_EXISTS'); // single check is sufficient
-        bytes memory bytecode = type(WagyuPair).creationCode;
+        require(token0 != address(0), 'Pepe: ZERO_ADDRESS');
+        require(getPair[token0][token1] == address(0), 'Pepe: PAIR_EXISTS'); // single check is sufficient
+        bytes memory bytecode = type(PepePair).creationCode;
         bytes32 salt = keccak256(abi.encodePacked(token0, token1));
         assembly {
             pair := create2(0, add(bytecode, 32), mload(bytecode), salt)
         }
-        IWagyuPair(pair).initialize(token0, token1);
+        IPepePair(pair).initialize(token0, token1);
         getPair[token0][token1] = pair;
         getPair[token1][token0] = pair; // populate mapping in the reverse direction
         allPairs.push(pair);
@@ -40,12 +41,12 @@ contract WagyuFactory is IWagyuFactory {
     }
 
     function setFeeTo(address _feeTo) external {
-        require(msg.sender == feeToSetter, 'Wagyu: FORBIDDEN');
+        require(msg.sender == feeToSetter, 'Pepe: FORBIDDEN');
         feeTo = _feeTo;
     }
 
     function setFeeToSetter(address _feeToSetter) external {
-        require(msg.sender == feeToSetter, 'Wagyu: FORBIDDEN');
+        require(msg.sender == feeToSetter, 'Pepe: FORBIDDEN');
         feeToSetter = _feeToSetter;
     }
 }
