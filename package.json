@@ -39,7 +39,8 @@
     "compile": "waffle .waffle.json",
     "pretest": "yarn compile",
     "test": "mocha",
-    "prepublishOnly": "yarn test"
+    "prepublishOnly": "yarn test",
+    "flat:contracts": "sol-merger 'contracts/**/*.sol' ./build/contracts-flat"
   },
   "license": "GPL-3.0-or-later",
   "dependencies": {
@@ -48,6 +49,7 @@
     "@truffle/hdwallet-provider": "^1.4.0",
     "dotenv": "^10.0.0",
     "lightweight-charts": "^3.3.0",
+    "sol-merger": "^3.1.0",
     "truffle": "^5.1.41",
     "truffle-flattener": "^1.4.4"
   }
