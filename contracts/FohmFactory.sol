@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.5.16;
 
-import './interfaces/IPepeFactory.sol';
-import './PepePair.sol';
+import './interfaces/IFohmFactory.sol';
+import './FohmPair.sol';
 
-contract PepeFactory is IPepeFactory {
-    bytes32 public constant INIT_CODE_PAIR_HASH = keccak256(abi.encodePacked(type(PepePair).creationCode));
+contract FohmFactory is IFohmFactory {
+    bytes32 public constant INIT_CODE_PAIR_HASH = keccak256(abi.encodePacked(type(FohmPair).creationCode));
 
     address public feeTo;
     address public feeToSetter;
@@ -24,16 +24,16 @@ contract PepeFactory is IPepeFactory {
     }
 
     function createPair(address tokenA, address tokenB) external returns (address pair) {
-        require(tokenA != tokenB, 'Pepe: IDENTICAL_ADDRESSES');
+        require(tokenA != tokenB, 'Fohm: IDENTICAL_ADDRESSES');
         (address token0, address token1) = tokenA < tokenB ? (tokenA, tokenB) : (tokenB, tokenA);
-        require(token0 != address(0), 'Pepe: ZERO_ADDRESS');
-        require(getPair[token0][token1] == address(0), 'Pepe: PAIR_EXISTS'); // single check is sufficient
-        bytes memory bytecode = type(PepePair).creationCode;
+        require(token0 != address(0), 'Fohm: ZERO_ADDRESS');
+        require(getPair[token0][token1] == address(0), 'Fohm: PAIR_EXISTS'); // single check is sufficient
+        bytes memory bytecode = type(FohmPair).creationCode;
         bytes32 salt = keccak256(abi.encodePacked(token0, token1));
         assembly {
             pair := create2(0, add(bytecode, 32), mload(bytecode), salt)
         }
-        IPepePair(pair).initialize(token0, token1);
+        IFohmPair(pair).initialize(token0, token1);
         getPair[token0][token1] = pair;
         getPair[token1][token0] = pair; // populate mapping in the reverse direction
         allPairs.push(pair);
@@ -41,12 +41,12 @@ contract PepeFactory is IPepeFactory {
     }
 
     function setFeeTo(address _feeTo) external {
-        require(msg.sender == feeToSetter, 'Pepe: FORBIDDEN');
+        require(msg.sender == feeToSetter, 'Fohm: FORBIDDEN');
         feeTo = _feeTo;
     }
 
     function setFeeToSetter(address _feeToSetter) external {
-        require(msg.sender == feeToSetter, 'Pepe: FORBIDDEN');
+        require(msg.sender == feeToSetter, 'Fohm: FORBIDDEN');
         feeToSetter = _feeToSetter;
     }
 }

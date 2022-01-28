@@ -1,14 +1,14 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.5.16;
 
-import './interfaces/IPepeERC20.sol';
+import './interfaces/IFohmERC20.sol';
 import './libraries/SafeMath.sol';
 
-contract PepeERC20 is IPepeERC20 {
+contract FohmERC20 is IFohmERC20 {
     using SafeMath for uint;
 
-    string public constant name = 'Pepe LPs';
-    string public constant symbol = 'Pepe-LP';
+    string public constant name = 'Fohm LPs';
+    string public constant symbol = 'Fohm-LP';
     uint8 public constant decimals = 18;
     uint  public totalSupply;
     mapping(address => uint) public balanceOf;
@@ -77,7 +77,7 @@ contract PepeERC20 is IPepeERC20 {
     }
 
     function permit(address owner, address spender, uint value, uint deadline, uint8 v, bytes32 r, bytes32 s) external {
-        require(deadline >= block.timestamp, 'Pepe: EXPIRED');
+        require(deadline >= block.timestamp, 'Fohm: EXPIRED');
         bytes32 digest = keccak256(
             abi.encodePacked(
                 '\x19\x01',
@@ -86,7 +86,7 @@ contract PepeERC20 is IPepeERC20 {
             )
         );
         address recoveredAddress = ecrecover(digest, v, r, s);
-        require(recoveredAddress != address(0) && recoveredAddress == owner, 'Pepe: INVALID_SIGNATURE');
+        require(recoveredAddress != address(0) && recoveredAddress == owner, 'Fohm: INVALID_SIGNATURE');
         _approve(owner, spender, value);
     }
 }

@@ -47,6 +47,13 @@ module.exports = {
       timeoutBlocks: 200,
       skipDryRun: true
     },
+    fantomTestNet: {
+      provider: () => new HDWalletProvider(MNEMONIC, `https://rpc.testnet.fantom.network`),
+      network_id: 4002,
+      networkCheckTimeout: 120000,
+      timeoutBlocks: 200,
+      skipDryRun: true
+    },
     bsc: {
       provider: () => new HDWalletProvider(MNEMONIC, `https://bsc-dataseed1.binance.org`),
       network_id: 56,
@@ -86,6 +93,7 @@ module.exports = {
     'truffle-plugin-verify'
   ],
   api_keys: {
-    bscscan: process.env.BSCSCAN_API_KEY
+    bscscan: process.env.BSCSCAN_API_KEY,
+    ftmscan: process.env.FTMSCAN_API_KEY
   }
 };
